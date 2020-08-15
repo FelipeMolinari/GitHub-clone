@@ -57,6 +57,7 @@ const ProfileData: React.FC<ProfileProps> = ({
 					<span>following</span>
 				</li>
 			</Row>
+
 			<Column>
 				{company && (
 					<li>

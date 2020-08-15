@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 *{
@@ -7,7 +7,7 @@ export default createGlobalStyle`
   box-sizing: border-box;
 }
 :root{
-  font-size: 60%;
+  font-size: 63%;
   --primary: #fff;
 --black: #1b1f23;
 --gray: #586069;
@@ -40,7 +40,7 @@ html{
   max-width: 100vw;
   background: var(--primary)
 }
-* button input{
+*, button, input{
   border: 0;
   background: none;
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
