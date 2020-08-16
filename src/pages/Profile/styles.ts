@@ -15,5 +15,35 @@ export const Main = styled.div`
 		padding: 1.2rem;
 	}
 `;
-export const LeftSide = styled.div`@media (min-width: 768px) {width: 20%;}`;
-export const RightSide = styled.div`@media (min-width: 768px) {width: 80%;}`;
+export const LeftSide = styled.div`
+	padding: 0 var(--horizontalPadding);
+	@media (min-width: 768px) {
+		width: 25%;
+	}
+`;
+export const RightSide = styled.div`
+	padding: 0 var(--horizontalPadding);
+
+	@media (min-width: 768px) {
+		width: 75%;
+	}
+`;
+export const Repos = styled.div`
+	margin-top: var(--verticalPadding);
+
+	> h2 {
+		font-size: 1.6rem;
+		font-weight: normal;
+	}
+	> div {
+		margin-top: 0.8rem;
+		display: grid;
+		grid-gap: 1.6rem;
+		grid-template-columns: 1fr;
+
+		@media (min-width: 768px) {
+			grid-template-columns: 1fr 1fr;
+			grid-auto-rows: minmax(min-content, max-content);
+		}
+	}
+`;

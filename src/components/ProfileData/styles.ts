@@ -46,14 +46,14 @@ export const Row = styled.ul`
 		display: flex;
 		align-items: center;
 		> span {
-			font-size: 1.4rem;
+			font-size: 1.2rem;
 			color: var(--gray);
 		}
 		> * {
 			margin-right: 0.4rem;
 		}
 		> b {
-			font-size: 1.6rem;
+			font-size: 1.2rem;
 		}
 	}
 `;
@@ -75,8 +75,8 @@ export const Column = styled.ul`
 `;
 
 const iconCSS = css`
-	width: 1.4rem;
-	height: 1.4rem;
+	width: 1.2rem;
+	height: 1.2rem;
 	fill: var(--icon);
 	flex-shrink: 0;
 `;
