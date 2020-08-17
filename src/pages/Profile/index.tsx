@@ -5,6 +5,7 @@ import ProfileData from '../../components/ProfileData';
 import RepoCard from '../../components/RepoCard';
 import RandomCalendar from '../../components/RandomCalendar';
 import { UserAPI, ReposAPI } from '../../@types';
+import Footer from '../../components/Footer';
 
 interface Data {
 	user?: UserAPI;
@@ -101,6 +102,7 @@ const Profile: React.FC = () => {
 					<RandomCalendar />
 				</RightSide>
 			</Main>
+			<Footer></Footer>
 		</Container>
 	);
 };
