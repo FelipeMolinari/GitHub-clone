@@ -12,6 +12,11 @@ fill: var(--logo);
 flex-shrink: 0;
 width: 3.8rem;
 height:3.8rem;
+cursor: pointer;
+&:hover{
+	opacity: 0.7;
+}
+
 `;
 export const SearchForm = styled.form`
 	width: 100%;
@@ -26,7 +31,7 @@ export const SearchForm = styled.form`
 
 		&:focus {
 			background: var(--form-on-hover);
-			color: var(--black);
+			color: var(--header);
 			width: 30rem;
 		}
 		transition: width 0.2s ease-out, color 0.2s ease-out;
