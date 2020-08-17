@@ -1,17 +1,56 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container, Main, LeftSide, RightSide, Repos, CalendarHeading, RepoIcon, Tab } from './styles';
 import ProfileData from '../../components/ProfileData';
 import RepoCard from '../../components/RepoCard';
 import RandomCalendar from '../../components/RandomCalendar';
+import { UserAPI, ReposAPI } from '../../@types';
+
+interface Data {
+	user?: UserAPI;
+	repos?: ReposAPI[];
+	error?: string;
+}
 const Profile: React.FC = () => {
+	const { username = 'FelipeMolinari' } = useParams();
+	const [ data, setData ] = useState<Data>();
+
+	useEffect(
+		() => {
+			Promise.all([
+				fetch(`https:/api.github.com/users/${username}`),
+				fetch(`https:/api.github.com/users/${username}/repos`)
+			]).then(async (responses) => {
+				const [ userResponse, reposResponse ] = responses;
+				if (userResponse.status === 404) {
+					setData({ error: `User not found!` });
+					return;
+				}
+				const user = await userResponse.json();
+				const repos = await reposResponse.json();
+				const shuffledRepos = repos.sort(()=>0.5-Math.random())
+				const sliced = shuffledRepos.slice(0,6);
+
+				setData({ user, repos:sliced });
+			});
+		},
+		[ username ]
+	);
+  if (data?.error) {
+    return <h1>{data.error}</h1>;
+  }
+
+  if (!data?.user || !data?.repos) {
+    return <h1>Loading...</h1>;
+  }
 	const TabContent = () => (
 		<div className="content">
 			<RepoIcon />
 			<span className="label">Repositories</span>
-			<span className="number">26</span>
+			<span className="number">{data.user?.public_repos}</span>
 		</div>
 	);
+	
 	return (
 		<Container>
 			<Tab className="desktop">
@@ -24,17 +63,17 @@ const Profile: React.FC = () => {
 			<Main>
 				<LeftSide>
 					<ProfileData
-						username={'FelipeMolinari'}
-						name={'Felipe Molinari'}
+						username={data.user.login}
+						name={data.user.name}
 						avatarUrl={
-							'https://avatars0.githubusercontent.com/u/44385529?s=460&u=c8a1d528513e46dce6a4bb1d689155fa18b5f1d4&v=4'
+							data.user.avatar_url
 						}
-						followers={887}
-						following={7}
-						company={'Minha casa'}
-						location={'Belo Horizonte, Brazil'}
-						email={'felipemolinari874@gmail.com'}
-						blog={undefined}
+						followers={data.user.followers}
+						following={data.user.following}
+						company={data.user.company}
+						location={data.user.location}
+						email={data.user.email}
+						blog={data.user.blog}
 					/>
 				</LeftSide>
 				<RightSide>
@@ -45,15 +84,15 @@ const Profile: React.FC = () => {
 					<Repos>
 						<h2>Random Repos</h2>
 						<div>
-							{[ 1, 2, 3, 4, 5, 6 ].map((n) => (
+							{data.repos.map((item) => (
 								<RepoCard
-									key={n}
-									username={'Felipe Molinari'}
-									reponame={'git-hubclone'}
-									description={'Contain a github clone better than the original one.'}
-									language={n % 3 === 0 ? 'Javascript' : 'Typescript'}
-									stars={100}
-									forks={12}
+									key={item.name}
+									username={item.owner.login}
+									reponame={item.name}
+									description={item.description}
+									language={item.language}
+									stars={item.stargazers_count}
+									forks={item.forks}
 								/>
 							))}
 						</div>
